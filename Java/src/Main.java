@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world! Bingo Verifier");
+       System.out.println("Hello world! Bingo Verifier");
 
         // 2D array to represent the pattern
         int[][] pattern = new int[5][5];
