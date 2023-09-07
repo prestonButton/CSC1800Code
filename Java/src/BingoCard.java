@@ -1,4 +1,3 @@
-// File: src/BingoCard.java
 public class BingoCard {
     private int[][] card;
 
@@ -41,6 +40,10 @@ public class BingoCard {
             }
         }
         card = rotatedCard;
+    }
+
+    public int getNumber(int row, int column) {
+        return card[row][column];
     }
 
     public int[][] getCard() {

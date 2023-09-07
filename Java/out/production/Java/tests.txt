@@ -13,3 +13,49 @@
 14 30 44 55 64
 
 (Should return a valid bingo)
+
+Here is the algorithm in English with numbered steps for checking if the non-zero values in the pattern are called:
+
+1. Start with the BingoVerifier object which has the pattern, the list of called numbers, and the BingoCard object.
+
+2. Check the top-left number in the pattern:
+- if it is 0 move to the next number (con)
+- If it's 4, this is a Crazy Bingo case. You need to rotate the card and check for a match.
+- If it's 1, this is a regular Bingo case. You need to check for a match without rotating the card.
+
+3. To check for a match (either with or without rotation):
+- Iterate over each spot in the pattern.
+- If the spot in the pattern is non-zero, check if the corresponding number on the bingo card is marked (i.e., has been called).
+- If the number on the bingo card is not marked, return false because the pattern does not match.
+- If all non-zero spots in the pattern correspond to marked numbers on the bingo card, return true because the pattern matches.
+
+4. For the Crazy Bingo case:
+- Rotate the card clockwise.
+- Check for a match using the steps above.
+- Repeat this process 4 times (since there are 4 possible rotations).
+- If a match is found in any rotation, return true.
+- If no match is found after all rotations, return false.
+
+5. If the function returns true, print "VALID BINGO". If it returns false, print "NO BINGO".
+
+Find the first non-zero number by iterating through the 2D pattern array. 
+    If 1, only need to check for the pattern,
+    if 4, need to check all rotations.
+
+Look through the 2d pattern array. 
+    for every non-zero number, retrieve the number in the same position from the card.
+        reference that number against the numbers called
+        if the number is in the list
+            continue
+        else
+            return false
+
+if the non-zero numbers are 4, 
+    rotate pattern 90deg clockwise.
+    repeat the above process til Bingo or all 4 directions are checked
+
+if Bingo, get the last number from the Numbers called. find it's location in the card. Then check it's location in the pattern and if the number is a non-zero, then print VALID BINGO;
+else print NO BINGO
+
+*/
+
