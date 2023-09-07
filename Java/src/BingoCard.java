@@ -6,9 +6,7 @@ public class BingoCard {
         card = new int[5][5];
         // Populate the card with the provided numbers
         for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                card[i][j] = cardNumbers[i][j];
-            }
+            System.arraycopy(cardNumbers[i], 0, card[i], 0, 5);
         }
     }
 
@@ -25,13 +23,27 @@ public class BingoCard {
 
     public boolean isNumberMarked(int number) {
         // Check if a number is marked on the card
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                if (card[i][j] == number) {
+        for (int[] row : card) {
+            for (int cell : row) {
+                if (cell == number) {
                     return false;  // The number is not marked
                 }
             }
         }
         return true;  // The number is marked
+    }
+
+    public void rotateClockwise() {
+        int[][] rotatedCard = new int[5][5];
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                rotatedCard[j][4 - i] = card[i][j];
+            }
+        }
+        card = rotatedCard;
+    }
+
+    public int[][] getCard() {
+        return card;
     }
 }

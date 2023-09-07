@@ -12,31 +12,41 @@ public class BingoVerifier {
     }
 
     public boolean isValidBingo() {
-        // Mark the called numbers on the bingo card
-        for (int number : calledNumbers) {
-            bingoCard.markNumber(number);
+        // If the non-zero number in the pattern is 4, rotate the card and check for a match
+        if (pattern[0][0] == 4) {
+            for (int i = 0; i < 4; i++) {
+                if (isPatternMatch()) {
+                    return true;
+                }
+                bingoCard.rotateClockwise();
+            }
+            return false;
         }
 
-        // Check for a winning pattern
-        boolean isBingo = true;
+        // If the non-zero number in the pattern is 1, check for a match without rotating the card
+        return isPatternMatch();
+    }
+
+    private boolean isPatternMatch() {
+        // Check if all the non-zero spots in the pattern are filled
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                if (pattern[i][j] == 1 && !bingoCard.isNumberMarked(pattern[i][j])) {
-                    isBingo = false;
-                    break;
+                if (pattern[i][j] != 0 && !bingoCard.isNumberMarked(pattern[i][j])) {
+                    return false;
                 }
             }
-            if (!isBingo) {
-                break;
+        }
+
+        // Check if the last number called is on one of the non-zero spots in the pattern
+        int lastNumberCalled = calledNumbers.get(calledNumbers.size() - 1);
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (pattern[i][j] != 0 && bingoCard.getCard()[i][j] == lastNumberCalled) {
+                    return true;
+                }
             }
         }
 
-        // Check the last number called
-        if (isBingo) {
-            int lastNumberCalled = calledNumbers.get(calledNumbers.size() - 1);
-            isBingo = bingoCard.isNumberMarked(lastNumberCalled);
-        }
-
-        return isBingo;
+        return false;
     }
 }
