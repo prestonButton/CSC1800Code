@@ -1,11 +1,11 @@
-import java.util.List;
+import java.util.Set;
 
 public class BingoVerifier {
     private int[][] pattern;
-    private List<Integer> calledNumbers;
+    private Set<Integer> calledNumbers;
     private BingoCard bingoCard;
 
-    public BingoVerifier(int[][] pattern, List<Integer> calledNumbers, BingoCard bingoCard) {
+    public BingoVerifier(int[][] pattern, Set<Integer> calledNumbers, BingoCard bingoCard) {
         this.pattern = pattern;
         this.calledNumbers = calledNumbers;
         this.bingoCard = bingoCard;
@@ -38,7 +38,7 @@ public class BingoVerifier {
         }
 
         // Check if the last number called is on one of the non-zero spots in the pattern
-        int lastNumberCalled = calledNumbers.get(calledNumbers.size() - 1);
+        int lastNumberCalled = calledNumbers.stream().reduce((first, second) -> second).orElse(null);
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 if (pattern[i][j] != 0 && bingoCard.getCard()[i][j] == lastNumberCalled) {

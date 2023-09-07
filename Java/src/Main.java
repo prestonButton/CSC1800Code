@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,9 +32,13 @@ public class Main {
             String[] numbers = scanner.nextLine().split(" ");
             for (String number : numbers) {
                 if (!number.isEmpty()) {
-                    calledNumbers.add(Integer.parseInt(number));
+                    int num = Integer.parseInt(number);
+                    calledNumbers.add(num);
                 }
             }
+
+            // Convert calledNumbers to a Set for faster lookups
+            Set<Integer> calledNumbersSet = new HashSet<>(calledNumbers);
 
             // Skip the blank line
             scanner.nextLine();
@@ -50,7 +56,7 @@ public class Main {
             BingoCard card = new BingoCard(bingoCardNumbers);
 
             // Create a BingoVerifier object
-            BingoVerifier verifier = new BingoVerifier(pattern, calledNumbers, card);
+            BingoVerifier verifier = new BingoVerifier(pattern, calledNumbersSet, card);
 
             // Print the result
             if (verifier.isValidBingo()) {

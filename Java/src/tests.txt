@@ -44,5 +44,18 @@ Find the first non-zero number by iterating through the 2D pattern array.
 
 Look through the 2d pattern array. 
     for every non-zero number, retrieve the number in the same position from the card.
-    reference that number against the numbers called
+        reference that number against the numbers called
+        if the number is in the list
+            continue
+        else
+            return false
+
+if the non-zero numbers are 4, 
+    rotate pattern 90deg clockwise.
+    repeat the above process til Bingo or all 4 directions are checked
+
+if Bingo, get the last number from the Numbers called. find it's location in the card. Then check it's location in the pattern and if the number is a non-zero, then print VALID BINGO;
+else print NO BINGO
+
+*/
 
