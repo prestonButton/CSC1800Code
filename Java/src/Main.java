@@ -29,7 +29,9 @@ public class Main {
             // Read the called numbers
             String[] numbers = scanner.nextLine().split(" ");
             for (String number : numbers) {
-                calledNumbers.add(Integer.parseInt(number));
+                if (!number.isEmpty()) {
+                    calledNumbers.add(Integer.parseInt(number));
+                }
             }
 
             // Skip the blank line
