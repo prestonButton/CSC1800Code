@@ -17,11 +17,10 @@ public class BingoGame {
 
         int rowIndex = 0;
         while (rowIndex < 5) {
-            String patternInput = scanner.nextLine();
-            String[] patternTokens = patternInput.split(" ");
+            String[] pattern = scanner.nextLine().split(" ");
             int columnIndex = 0;
-            for (String token : patternTokens) {
-                int number = Integer.parseInt(token);
+            for (String  item: pattern) {
+                int number = Integer.parseInt(item);
                 if (number != 0) {
                     rowIndices.add(rowIndex);
                     columnIndices.add(columnIndex);
@@ -34,22 +33,19 @@ public class BingoGame {
 
         scanner.nextLine();
 
-        String calledNumbersInput = scanner.nextLine();
-        String[] calledNumbersTokens = calledNumbersInput.split(" ");
-        for (String token : calledNumbersTokens) {
-            calledNumbers.add(Integer.parseInt(token));
+        String[] calledNumbers = scanner.nextLine().split(" ");
+        for (String calledNumber : calledNumbers) {
+            this.calledNumbers.add(Integer.parseInt(calledNumber));
         }
 
         scanner.nextLine();
 
         rowIndex = 0;
-        String cardInput;
         while (rowIndex < 5) {
-            cardInput = scanner.nextLine();
-            String[] cardTokens = cardInput.split(" ");
+            String[] card = scanner.nextLine().split(" ");
             int columnIndex = 0;
-            for (String token : cardTokens) {
-                int number = Integer.parseInt(token);
+            for (String item : card) {
+                int number = Integer.parseInt(item);
                 bingoCard[rowIndex][columnIndex] = number;
                 columnIndex++;
             }
