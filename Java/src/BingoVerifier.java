@@ -12,30 +12,63 @@ public class BingoVerifier {
     }
 
     public boolean isValidBingo() {
-        // If the non-zero number in the pattern is 4, rotate the card and check for a match
-        if (pattern[0][0] == 4) {
-            for (int i = 0; i < 4; i++) {
-                if (isPatternMatch()) {
-                    return true;
+        String[][] outputPattern = new String[5][5];
+        boolean isValid = true;
+
+        for (int i = 0; i < pattern.length; i++) {
+            for (int j = 0; j < pattern[i].length; j++) {
+                int numberOnCard = bingoCard.getNumber(i, j);
+                if (pattern[i][j] != 0) {
+                    if (bingoCard.isNumberMarked(numberOnCard)) {
+                        outputPattern[i][j] = String.valueOf(numberOnCard);
+                    } else {
+                        outputPattern[i][j] = "XX";
+                        isValid = false;
+                    }
+                } else {
+                    outputPattern[i][j] = "00";
                 }
-                bingoCard.rotateClockwise();
             }
-            return false;
         }
 
-        // If the non-zero number in the pattern is 1, check for a match without rotating the card
-        return isPatternMatch();
+        // Print the output pattern
+        for (int i = 0; i < outputPattern.length; i++) {
+            for (int j = 0; j < outputPattern[i].length; j++) {
+                System.out.print(outputPattern[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        return isValid && checkPattern();
     }
 
-    private boolean isPatternMatch() {
+    private boolean checkPattern() {
+        int lastCalledNumber = getLastCalledNumber();
+        boolean isLastNumberInPattern = false;
+
         // Check if all the non-zero spots in the pattern are filled
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                if (pattern[i][j] != 0 && !calledNumbers.contains(bingoCard.getNumber(i, j))) {
-                    return false;
+                if (pattern[i][j] != 0) {
+                    int numberInCard = bingoCard.getNumber(i, j);
+                    if (!calledNumbers.contains(numberInCard)) {
+                        return false;
+                    }
+                    if (numberInCard == lastCalledNumber) {
+                        isLastNumberInPattern = true;
+                    }
                 }
             }
         }
-        return true;
+
+        return isLastNumberInPattern;
+    }
+
+    private int getLastCalledNumber() {
+        int lastNumber = 0;
+        for (int number : calledNumbers) {
+            lastNumber = number;
+        }
+        return lastNumber;
     }
 }
